@@ -1,17 +1,17 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractactableObject : MonoBehaviour
+public class InteractableObject : MonoBehaviour
 {
-    [Header("»óÈ£ ÀÛ¿ë Á¤º¸ ")]
-    public string objectName = "¾ÆÀÌÅÛ ";
-    public string interactionText = "[E] »óÈ£ ÀÛ¿ë";
-    public InteractionType interactionType = InteractionType.ltem;
+    [Header("ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½")]
+    public string objectName = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ";
+    public string interactionText = "[E] ï¿½ï¿½È£ï¿½Û¿ï¿½";
+    public InteractionType interactionType = InteractionType.Item;                  //Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼± Item
 
-    [Header("ÇÏÀÌ¶óÀÌÆ® ¼³Á¤")]
+    [Header("ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½")]
     public Color highlightColor = Color.yellow;
-    public float highlightlntensity = 1.5f;
+    public float highlightIntensity = 1.5f;
 
     public Renderer objectRenderer;
     private Color originalColor;
@@ -19,54 +19,92 @@ public class InteractactableObject : MonoBehaviour
 
     public enum InteractionType
     {
-        ltem,
-        Machine,
-        Building,
-        NPC,
-        Cellectible
+        Item,                       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)
+        Machine,                    //ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ,ï¿½ï¿½Æ° ï¿½ï¿½)
+        Building,                    //ï¿½Ç¹ï¿½ (ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)
+        NPC,                        //NPC
+        Collectible                 //ï¿½ï¿½ï¿½ï¿½Ç°
     }
 
-    public virtual void OnPlayerErter()
+
+    protected virtual void Start()
     {
-        Debug.Log($"[{objectName}) °¨ÁöµÊ");
+        objectRenderer = GetComponent<Renderer>();
+        if (objectRenderer != null)
+        {
+            originalColor = objectRenderer.material.color;
+        }
+
+        gameObject.layer = 8;           //(Layer 8 = Interactable ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    }
+
+    public virtual void OnPlayerEnter()
+    {
+        Debug.Log($"[{objectName}) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         HighlightObject();
     }
 
     public virtual void OnPlayerExit()
     {
-        Debug.Log($"[{objectName}) °¨ÁöµÊ");
-       RemoveHighlight();
+        Debug.Log($"[{objectName}] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³²");
+        RemoveHighlight();
     }
-    protected virtual void HighlightObject()
+
+
+    public virtual void Interact()
+    {
+        //ï¿½ï¿½È£ï¿½Û¿ï¿½ Å¸ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½ï¿½
+        switch (interactionType)
+        {
+            case InteractionType.Item:
+                CollectItem();
+                break;
+            case InteractionType.Machine:
+                OperateMachine();
+                break;
+            case InteractionType.Building:
+                AccessBuilding();
+                break;
+            case InteractionType.Collectible:
+                CollectItem();
+                break;
+        }
+    }
+
+    public string GetInteractionText()
+    {
+        return interactionText;
+    }
+
+    protected virtual void HighlightObject()                                            //ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ 
     {
         if (objectRenderer != null && !isHighlighted)
         {
             objectRenderer.material.color = highlightColor;
-            objectRenderer.material.SetFloat("_Emission", highlightlntensity);
+            objectRenderer.material.SetFloat("_Emission", highlightIntensity);
             isHighlighted = true;
         }
     }
 
-    protected virtual void RemoveHighlight()
+    protected virtual void RemoveHighlight()                                            //ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
     {
-        if (objectRenderer != null && !isHighlighted)
+        if (objectRenderer != null && isHighlighted)
         {
             objectRenderer.material.color = originalColor;
             objectRenderer.material.SetFloat("_Emission", 0f);
             isHighlighted = false;
-
         }
     }
 
-    protected virtual void Collectltem()
+    protected virtual void CollectItem()
     {
-      
-        {
-            Destroy(gameObject);
-        }
+        Debug.Log($"{objectName}ï¿½ï¿½(ï¿½ï¿½) È¹ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½!");
+        Destroy(gameObject);
     }
+
     protected virtual void OperateMachine()
     {
+        Debug.Log($"{objectName}ï¿½ï¿½(ï¿½ï¿½) ï¿½Ûµï¿½ï¿½ï¿½ï¿½×½ï¿½ï¿½Ï´ï¿½.!");
         if (objectRenderer != null)
         {
             objectRenderer.material.color = Color.green;
@@ -75,51 +113,12 @@ public class InteractactableObject : MonoBehaviour
 
     protected virtual void AccessBuilding()
     {
+        Debug.Log($"{objectName}ï¿½ï¿½(ï¿½ï¿½) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
         transform.Rotate(Vector3.up * 90f);
-
     }
-    
+
     protected virtual void TalkToNPC()
     {
-        Debug.Log($"{objectName}¿Í ´ëÈ­¸¦ ½ÃÀÛÇÕ´Ï´Ù.");
-    }
-
-    public virtual void lnteract()
-    {
-        switch(interactionType)
-        {
-            case InteractionType.ltem:
-                Collectltem();
-                break;
-            case InteractionType.Machine:
-                OperateMachine();
-                break;
-            case InteractionType.Building:
-                AccessBuilding();
-                break;
-            case InteractionType.Cellectible:
-                Collectltem();
-                break;
-            case InteractionType.NPC:
-                TalkToNPC();
-                break;
-        }
-        
-    }
-
-    public string GetinteractionText()
-    {
-        return interactionText;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log($"{objectName}ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½. ");
     }
 }

@@ -16,7 +16,7 @@ public class InteractionSystem : MonoBehaviour
     public GameObject interactionUI;
 
     private Transform playerTransform;
-    private InteractactableObject currentlnteractiable;
+    private InteractableObject currentlnteractiable;
 
     void Start()
     {
@@ -34,7 +34,7 @@ public class InteractionSystem : MonoBehaviour
     {
         if (currentlnteractiable != null && Input.GetKeyDown(interactionKey))
         {
-            currentlnteractiable.lnteract();
+            currentlnteractiable.Interact();
         }
         
            
@@ -69,12 +69,12 @@ public class InteractionSystem : MonoBehaviour
 
         Collider[] hitColliders = Physics.OverlapSphere(checkPosition, interactionRange, interactionLayerMask);
 
-        InteractactableObject closestlnteractable = null;
+        InteractableObject closestlnteractable = null;
         float closestDistance = float.MaxValue;
 
         foreach(Collider collider in hitColliders)
         {
-            InteractactableObject interactable = collider.GetComponent<InteractactableObject>();
+            InteractableObject interactable = collider.GetComponent<InteractableObject>();
             if (interactable != null)
             {
                 float distance = Vector3.Distance(playerTransform.position, collider.transform.position);
@@ -99,8 +99,8 @@ public class InteractionSystem : MonoBehaviour
 
             if (currentlnteractiable != null)
             {
-                currentlnteractiable.OnPlayerErter();
-                ShowlnteractionUI(currentlnteractiable.GetinteractionText());
+                currentlnteractiable.OnPlayerEnter();
+                ShowlnteractionUI(currentlnteractiable.GetInteractionText());
             }
            else
             {

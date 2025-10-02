@@ -1,12 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static InteractactableObject;
 
-public class Door : InteractactableObject
+public class Door : InteractableObject
 {
 
-    [Header("¹® ¼³Á¤")]
+    [Header("ë¬¸ ì„¤ì •")]
     public bool isOpen = false;
     public Vector3 openPosition;
     public float openSpeed = 2f;
@@ -15,9 +14,9 @@ public class Door : InteractactableObject
 
     protected override void Start()
     {
-        base.start();
-        objectName = "¹®";
-        interactionText = "[E] ¹® ¿­±â";
+        base.Start();
+        objectName = "ë¬¸";
+        interactionText = "[E] ë¬¸ ì—´ê¸°";
         interactionType = InteractionType.Building;
 
         closdPosition = transform.position;
@@ -29,12 +28,12 @@ public class Door : InteractactableObject
         isOpen = !isOpen;
         if (isOpen)
         {
-            interactionText = "[E] ¹® ´Ý±â";
+            interactionText = "[E] ë¬¸ ë‹«ê¸°";
            StartCoroutine(MoveDoor(closdPosition));
         }
         else
         {
-            interactionText = "[E] ¹® ¿­±â";
+            interactionText = "[E] ë¬¸ ì—´ê¸°";
             StartCoroutine(MoveDoor(openPosition));
         }
     }
