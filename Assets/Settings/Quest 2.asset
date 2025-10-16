@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6a406700c8b8a7498f4f7d8271969e8, type: 3}
-  m_Name: Quest 1
+  m_Name: Quest 2
   m_EditorClassIdentifier: 
-  questTitle: "\uD53C\uC9C0\uBC30\uB2EC\uD558\uAE30"
-  description: "\uD53C\uC790 \uBC30\uB2EC \uC644\uB8CC\uD574\uC8FC\uC138\uC694"
+  questTitle: "\uB3D9\uC804 \uC218\uC9D1\uD558\uAE30"
+  description: "\uB3D9\uC804 3\uAC1C \uBA39\uAE30"
   questlcon: {fileID: 0}
   questType: 0
   targetAmount: 1
-  deliveryPosition: {x: 45, y: 0, z: 45}
+  deliveryPosition: {x: 0, y: 0, z: 0}
   deliveryRedius: 3
   targetTag: 
   experienceReward: 100
