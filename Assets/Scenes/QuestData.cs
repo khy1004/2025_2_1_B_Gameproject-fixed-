@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Quest", menuName = "Quest System/Quest")]
 
-public class QuestData : MonoBehaviour
+public class QuestData : ScriptableObject
 {
     [Header("기본 정보")]
     public string questTitle = "새로운 퀘스트";

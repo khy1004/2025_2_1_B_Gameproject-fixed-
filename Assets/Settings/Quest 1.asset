@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a406700c8b8a7498f4f7d8271969e8, type: 3}
+  m_Name: Quest 1
+  m_EditorClassIdentifier: 
+  questTitle: "\uC0C8\uB85C\uC6B4 \uD018\uC2A4\uD2B8"
+  description: "\uD53C\uC790 \uBC30\uB2EC \uC644\uB8CC\uD574\uC8FC\uC138\uC694"
+  questlcon: {fileID: 0}
+  questType: 0
+  targetAmount: 1
+  deliveryPosition: {x: 45, y: 0, z: 45}
+  deliveryRedius: 3
+  targetTag: 
+  experienceReward: 100
+  rewardMessage: "\uD018\uC2A4\uD2B8 \uC644\uB8CC"
+  nextQuest: {fileID: 0}
