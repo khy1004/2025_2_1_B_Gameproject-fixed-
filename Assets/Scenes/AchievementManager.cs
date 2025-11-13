@@ -102,6 +102,23 @@ public class AchievementManager : MonoBehaviour
             achievement.isUnlocked = false;
             PlayerPrefs.DeleteKey("Unlocked_" + achievement.name);
         }
+
+        PlayerPrefs.Save();
+        UpdateAchievementUI();
+    }
+
+    void ShowAchievementPopup(AchievementData achievement)
+    {
+        if (achievementPopupPrefab != null && popupParent != null)
+        {
+            GameObject popup = Instantiate(achievementPopupPrefab, popupParent);
+
+            Text titleText = popup.transform.Find("Title")?.GetComponent<Text>();
+            Text descText = popup.transform.Find("Description")?.GetComponent<Text>();
+
+            if (titleText != null) titleText.text = "업적 달성";
+            if (descText != null) descText.text = achievement.achivevmentName;
+        }
     }
     // Start is called before the first frame update
     void Start()
