@@ -32,12 +32,12 @@ public class CityGenerator : EditorWindow
         GUILayout.Space(10);
         if (GUILayout.Button("Generator City"))
         {
-
+            GenerateCity();
         }
 
         if (GUILayout.Button("Clear City"))
         {
-
+            ClearCity();
         }
 
     }
