@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
     private float attackTimer;
 
     private bool isUIMode = false;
+
+    public GameObject effectPos;
     // Start is called before the first frame update
 
     void Start()
@@ -130,6 +132,8 @@ public class PlayerController : MonoBehaviour
             {
                 isLanding = true;
                 landingTimer = landingDuration;
+
+                EffectManager.Instance.PlayEffect("ÂøÁöÀÌÆåÆ®", transform.position);
             }
         }
     }
@@ -177,6 +181,7 @@ public class PlayerController : MonoBehaviour
             if (animator != null)
             {
                 animator.SetTrigger("attackTeigger");
+                EffectManager.Instance.PlayEffectWithDealyed("°ø°ÝÀÌÆåµå", effectPos.transform.position, Quaternion.identity, 0.5f, 1.0f);
             }
         }
     }
